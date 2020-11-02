@@ -4,6 +4,8 @@ Start a Bot with NestJS, Hasura and Postgres
 
 ## Setup
 
+### Environment
+
 ```sh
 cp bot/.env.local.example bot/.local.env
 # Edit bot/.local.env with your local/dev discord token
@@ -13,6 +15,14 @@ cp bot/.development.env.example bot/.development.env
 
 cp bot/.env.example bot/.env
 # Edit bot/.env with your prod discord token
+```
+
+### Database
+
+You need to have hasura cli installed. See [https://hasura.io/docs/1.0/graphql/core/hasura-cli/index.html](Here)
+
+```
+cd hasura
 ```
 
 ## Profiles
