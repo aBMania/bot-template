@@ -19,10 +19,12 @@ cp bot/.env.example bot/.env
 
 ### Database
 
-You need to have hasura cli installed. See [https://hasura.io/docs/1.0/graphql/core/hasura-cli/index.html](Here)
+You need to have hasura cli installed (See [Here](https://hasura.io/docs/1.0/graphql/core/hasura-cli/index.html)).  
 
 ```
+docker-compose up -f docker-compose.local.yml -d
 cd hasura
+hasura migrate apply
 ```
 
 ## Profiles
