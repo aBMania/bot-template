@@ -1,0 +1,52 @@
+version: '3.6'
+
+networks:
+  local:
+
+volumes:
+  whosaid3_postgres:
+
+services:
+  postgres:
+    image: postgres:12.4-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - whosaid3_postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+    networks:
+      - local
+
+  graphql-engine:
+    image: hasura/graphql-engine:v1.3.2
+    hostname: hasura
+    ports:
+      - '8080:8080'
+    depends_on:
+      - 'postgres'
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'false' # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+    networks:
+      - local
+
+  bot:
+    build:
+      context: ./bot/
+    volumes:
+      - ./bot/:/app/
+    env_file:
+      - ./bot/.env
+    environment:
+      - LOG_LEVEL=info
+      - REDIS_HOST=redis
+    ports:
+      - '3000:3000'
+    networks:
+      - local

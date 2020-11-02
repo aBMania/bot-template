@@ -1,0 +1,303 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: query_root
+    mutation: mutation_root
+    subscription: subscription_root
+}
+
+type mutation_root {
+    "delete data from the table: \"todo\""
+    delete_todo(
+        "filter the rows which have to be deleted"
+        where: todo_bool_exp!
+    ): todo_mutation_response
+    "delete single row from the table: \"todo\""
+    delete_todo_by_pk(id: uuid!): todo
+    "insert data into the table: \"todo\""
+    insert_todo(
+        "the rows to be inserted"
+        objects: [todo_insert_input!]!,
+        "on conflict condition"
+        on_conflict: todo_on_conflict
+    ): todo_mutation_response
+    "insert a single row into the table: \"todo\""
+    insert_todo_one(
+        "the row to be inserted"
+        object: todo_insert_input!,
+        "on conflict condition"
+        on_conflict: todo_on_conflict
+    ): todo
+    "update data of the table: \"todo\""
+    update_todo(
+        "sets the columns of the filtered rows to the given values"
+        _set: todo_set_input,
+        "filter the rows which have to be updated"
+        where: todo_bool_exp!
+    ): todo_mutation_response
+    "update single row of the table: \"todo\""
+    update_todo_by_pk(
+        "sets the columns of the filtered rows to the given values"
+        _set: todo_set_input,
+        pk_columns: todo_pk_columns_input!
+    ): todo
+}
+
+"query root"
+type query_root {
+    "fetch data from the table: \"todo\""
+    todo(
+        "distinct select on columns"
+        distinct_on: [todo_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [todo_order_by!],
+        "filter the rows returned"
+        where: todo_bool_exp
+    ): [todo!]!
+    "fetch aggregated fields from the table: \"todo\""
+    todo_aggregate(
+        "distinct select on columns"
+        distinct_on: [todo_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [todo_order_by!],
+        "filter the rows returned"
+        where: todo_bool_exp
+    ): todo_aggregate!
+    "fetch data from the table: \"todo\" using primary key columns"
+    todo_by_pk(id: uuid!): todo
+}
+
+"subscription root"
+type subscription_root {
+    "fetch data from the table: \"todo\""
+    todo(
+        "distinct select on columns"
+        distinct_on: [todo_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [todo_order_by!],
+        "filter the rows returned"
+        where: todo_bool_exp
+    ): [todo!]!
+    "fetch aggregated fields from the table: \"todo\""
+    todo_aggregate(
+        "distinct select on columns"
+        distinct_on: [todo_select_column!],
+        "limit the number of rows returned"
+        limit: Int,
+        "skip the first n rows. Use only with order_by"
+        offset: Int,
+        "sort the rows by one or more columns"
+        order_by: [todo_order_by!],
+        "filter the rows returned"
+        where: todo_bool_exp
+    ): todo_aggregate!
+    "fetch data from the table: \"todo\" using primary key columns"
+    todo_by_pk(id: uuid!): todo
+}
+
+"columns and relationships of \"todo\""
+type todo {
+    content: String!
+    id: uuid!
+    title: String!
+}
+
+"aggregated selection of \"todo\""
+type todo_aggregate {
+    aggregate: todo_aggregate_fields
+    nodes: [todo!]!
+}
+
+"aggregate fields of \"todo\""
+type todo_aggregate_fields {
+    count(columns: [todo_select_column!], distinct: Boolean): Int
+    max: todo_max_fields
+    min: todo_min_fields
+}
+
+"aggregate max on columns"
+type todo_max_fields {
+    content: String
+    id: uuid
+    title: String
+}
+
+"aggregate min on columns"
+type todo_min_fields {
+    content: String
+    id: uuid
+    title: String
+}
+
+"response of any mutation on the table \"todo\""
+type todo_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [todo!]!
+}
+
+"column ordering options"
+enum order_by {
+    "in the ascending order, nulls last"
+    asc
+    "in the ascending order, nulls first"
+    asc_nulls_first
+    "in the ascending order, nulls last"
+    asc_nulls_last
+    "in the descending order, nulls first"
+    desc
+    "in the descending order, nulls first"
+    desc_nulls_first
+    "in the descending order, nulls last"
+    desc_nulls_last
+}
+
+"unique or primary key constraints on table \"todo\""
+enum todo_constraint {
+    "unique or primary key constraint"
+    todo_pkey
+}
+
+"select columns of table \"todo\""
+enum todo_select_column {
+    "column name"
+    content
+    "column name"
+    id
+    "column name"
+    title
+}
+
+"update columns of table \"todo\""
+enum todo_update_column {
+    "column name"
+    content
+    "column name"
+    id
+    "column name"
+    title
+}
+
+"expression to compare columns of type String. All fields are combined with logical 'AND'."
+input String_comparison_exp {
+    _eq: String
+    _gt: String
+    _gte: String
+    _ilike: String
+    _in: [String!]
+    _is_null: Boolean
+    _like: String
+    _lt: String
+    _lte: String
+    _neq: String
+    _nilike: String
+    _nin: [String!]
+    _nlike: String
+    _nsimilar: String
+    _similar: String
+}
+
+"order by aggregate values of table \"todo\""
+input todo_aggregate_order_by {
+    count: order_by
+    max: todo_max_order_by
+    min: todo_min_order_by
+}
+
+"input type for inserting array relation for remote table \"todo\""
+input todo_arr_rel_insert_input {
+    data: [todo_insert_input!]!
+    on_conflict: todo_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"todo\". All fields are combined with a logical 'AND'."
+input todo_bool_exp {
+    _and: [todo_bool_exp]
+    _not: todo_bool_exp
+    _or: [todo_bool_exp]
+    content: String_comparison_exp
+    id: uuid_comparison_exp
+    title: String_comparison_exp
+}
+
+"input type for inserting data into table \"todo\""
+input todo_insert_input {
+    content: String
+    id: uuid
+    title: String
+}
+
+"order by max() on columns of table \"todo\""
+input todo_max_order_by {
+    content: order_by
+    id: order_by
+    title: order_by
+}
+
+"order by min() on columns of table \"todo\""
+input todo_min_order_by {
+    content: order_by
+    id: order_by
+    title: order_by
+}
+
+"input type for inserting object relation for remote table \"todo\""
+input todo_obj_rel_insert_input {
+    data: todo_insert_input!
+    on_conflict: todo_on_conflict
+}
+
+"on conflict condition type for table \"todo\""
+input todo_on_conflict {
+    constraint: todo_constraint!
+    update_columns: [todo_update_column!]!
+    where: todo_bool_exp
+}
+
+"ordering options when selecting data from \"todo\""
+input todo_order_by {
+    content: order_by
+    id: order_by
+    title: order_by
+}
+
+"primary key columns input for table: \"todo\""
+input todo_pk_columns_input {
+    id: uuid!
+}
+
+"input type for updating data in table \"todo\""
+input todo_set_input {
+    content: String
+    id: uuid
+    title: String
+}
+
+"expression to compare columns of type uuid. All fields are combined with logical 'AND'."
+input uuid_comparison_exp {
+    _eq: uuid
+    _gt: uuid
+    _gte: uuid
+    _in: [uuid!]
+    _is_null: Boolean
+    _lt: uuid
+    _lte: uuid
+    _neq: uuid
+    _nin: [uuid!]
+}
+
+
+scalar uuid

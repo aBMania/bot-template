@@ -1,0 +1,17 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Todo {
+  content: String!
+  title: String!
+  id: String!
+}
+
+type Query {
+  getTodos: [Todo!]!
+}
+
+type Mutation {
+  addTodo: Todo!
+}

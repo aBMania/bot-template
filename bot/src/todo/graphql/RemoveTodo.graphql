@@ -1,0 +1,5 @@
+mutation RemoveTodo($title: String!) {
+    delete_todo(where: {title: {_eq: $title}}) {
+        affected_rows
+    }
+}
